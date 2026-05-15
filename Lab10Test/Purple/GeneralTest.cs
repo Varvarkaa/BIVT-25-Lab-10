@@ -1,6 +1,6 @@
 ﻿using Lab10;
-using System.IO;
 using Lab10.Purple;
+using System.IO;
 
 namespace Lab10Test.Purple
 {
