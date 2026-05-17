@@ -33,34 +33,30 @@ namespace Lab10.Purple
 
         public string Name => _name;
         public string FolderPath => _folderpath;
-
-        public string FileExtension => _fileextension;
-
         public string FileName => _filename;
+        public string FileExtension => _fileextension;
 
         public MyFileManager(string name)
         {
             _name = name;
-            _folderpath = "";
-            _fileextension = "";
             _filename = "";
             _fileformat = "";
+            _folderpath = "";
+            _fileextension = "";
         }
         public MyFileManager(string name, string folder, string file, string extension = "")
         {
             _name = name;
             _folderpath = folder;
-            _filename = file;
             _fileextension = extension;
+            _filename = file;
 
         }
         public virtual void ChangeFileExtension(string newExt)
         {
             if (File.Exists(FullPath))
             {
-
                 string newpath = Path.Combine(FolderPath, $"{FileName}.{newExt}");
-
                 File.Move(FullPath, newpath);
             }
             _fileextension = newExt;
@@ -72,13 +68,13 @@ namespace Lab10.Purple
         {
             if (string.IsNullOrEmpty(format)) return;
             _fileextension = format;
-            if (!File.Exists(FullPath)) CreateFile(); //проверить наличие по новоиу пути
+            if (!File.Exists(FullPath)) CreateFile(); 
 
         }
 
-        public virtual void ChangeFileName(string name)
+        public virtual void ChangeFileName(string fname)
         {
-            _filename = name;
+            _filename = fname;
         }
 
         public virtual void CreateFile()
@@ -86,7 +82,10 @@ namespace Lab10.Purple
             if (!Directory.Exists(FolderPath)) Directory.CreateDirectory(FolderPath);
             if (!File.Exists(FullPath)) File.Create(FullPath).Close();
         }
-
+        public virtual void SelectFolder(string folder)
+        {
+            _folderpath = folder;
+        }
         public virtual void DeleteFile()
         {
             if (File.Exists(FullPath)) File.Delete(FullPath);
@@ -96,11 +95,6 @@ namespace Lab10.Purple
         {
 
             if (File.Exists(FullPath)) File.WriteAllText(FullPath, text);
-        }
-
-        public virtual void SelectFolder(string folder)
-        {
-            _folderpath = folder;
         }
     }
 }
