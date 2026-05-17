@@ -13,18 +13,16 @@ namespace Lab10.Purple
         public PurpleFileManager(string name, string folderPath, string fileName, string fileExtension = "") :
              base(name, folderPath, fileName, fileExtension)
         { }
-
+        public override void ChangeFileExtension(string ext)
+        {
+            if (string.IsNullOrEmpty(FullPath) || !File.Exists(FullPath)) return;
+            base.ChangeFileExtension(ext);
+        }
         public override void EditFile(string newcont)
         {
             if (string.IsNullOrEmpty(FullPath) || !File.Exists(FullPath)) return;
 
             base.EditFile(newcont);
-        }
-
-        public override void ChangeFileExtension(string ext)
-        {
-            if (string.IsNullOrEmpty(FullPath) || !File.Exists(FullPath)) return;
-            base.ChangeFileExtension(ext);
         }
         public abstract T Deserialize();
 
