@@ -9,19 +9,19 @@ public class PurpleXmlFileManager<T> : PurpleFileManager<T> where T : Lab9.Purpl
     public PurpleXmlFileManager(string name) : base(name) { }
     public PurpleXmlFileManager(string name, string folder, string fileName, string extension)
         : base(name, folder, fileName, extension="") { }
-
-    public override void EditFile(string fileContent)
+    public override void ChangeFileExtension(string extension)
     {
-        T purple = Deserialize();
-        purple.ChangeText(fileContent);
-        Serialize(purple);
+        if (extension == "xml") ChangeFileFormat("xml");
     }
 
-    public override void ChangeFileExtension(string fileExtention)
+    public override void EditFile(string content)
     {
-        ChangeFileFormat("xml");
+        if (string.IsNullOrEmpty(FullPath) || !File.Exists(FullPath)) return;
+        T obj = Deserialize();
+        if (obj == null) return;
+        obj.ChangeText(content);
+        Serialize(obj);
     }
-
     public override void Serialize(T obj)
     {
         if (obj == null || FullPath == null) return;
@@ -41,11 +41,8 @@ public class PurpleXmlFileManager<T> : PurpleFileManager<T> where T : Lab9.Purpl
             var dto = (DTOPurple)ser.Deserialize(sr);
             Lab9.Purple.Purple result;
             if (dto.TypeName == "Task1") result = new Task1(dto.Input);
-            
-            else if (dto.TypeName == "Task2") result = new Task2(dto.Input);
-            
+            else if (dto.TypeName == "Task2") result = new Task2(dto.Input);            
             else if (dto.TypeName == "Task3") result = new Task3(dto.Input);
-            
             else if (dto.TypeName == "Task4") 
                 result = new Task4(dto.Input, dto.Codes ?? Array.Empty<(string, char)>());
             
