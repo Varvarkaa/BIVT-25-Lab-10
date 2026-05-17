@@ -7,22 +7,22 @@ namespace Lab10.Green
     public class Green
     {
         private GreenFileManager _manager;
-        private Green[] _tasks;
+        private Lab9.Green.Green[] _tasks;
 
         public GreenFileManager Manager => _manager;
-        public Green[] Tasks => (Green[])_tasks.Clone();
+        public Lab9.Green.Green[] Tasks => (Lab9.Green.Green[])_tasks.Clone();
 
-        public Green(Green[] tasks = null)
+        public Green(Lab9.Green.Green[] tasks = null)
         {
-            _tasks = tasks != null ? (Green[])tasks.Clone() : new Green[0];
+            _tasks = tasks != null ? (Lab9.Green.Green[])tasks.Clone() : new Green[0];
         }
 
-        public Green(GreenFileManager manager, Green[] tasks = null) : this(tasks)
+        public Green(GreenFileManager manager, Lab9.Green.Green[] tasks = null) : this(tasks)
         {
             _manager = manager;
         }
 
-        public Green(Green[] tasks, GreenFileManager manager) : this(tasks)
+        public Green(Lab9.Green.Green[] tasks, GreenFileManager manager) : this(tasks)
         {
             _manager = manager;
         }
@@ -34,13 +34,13 @@ namespace Lab10.Green
             _tasks[_tasks.Length - 1] = task;
         }
 
-        public void Add(Green[] tasks)
+        public void Add(Lab9.Green.Green[] tasks)
         {
             if (tasks == null) return;
             foreach (var t in tasks) Add(t);
         }
 
-        public void Remove(Green task)
+        public void Remove(Lab9.Green.Green task)
         {
             if (task == null || _tasks.Length == 0) return;
             var list = new System.Collections.Generic.List<Green>(_tasks);
